@@ -1,0 +1,121 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 450,
+  "title": {
+    "text": "Australia's Top 10 Export Destinations (2024, AUD$ Billion)",
+    "subtitle": "Source: ABS & DFAT, 2024"
+  },
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+  "data": {"sphere": {}},
+  "mark": {"type": "geoshape", "fill": "#dbeeff", "stroke": null}
+},
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "mark": {"type": "geoshape", "fill": "#f9f5e9", "stroke": "#999"}
+    },
+    {
+      "data": {"graticule": {"step": [30, 30]}},
+      "mark": {"type": "geoshape", "stroke": "#cccccc", "strokeWidth": 0.5}
+    },
+    {
+      "data": {"url": "exports2024.csv"},
+      "mark": {
+        "type": "circle",
+        "stroke": "black",
+        "strokeWidth": 0.5,
+        "opacity": 0.8
+      },
+      "encoding": {
+        "longitude": {"field": "Longitude", "type": "quantitative"},
+        "latitude": {"field": "Latitude", "type": "quantitative"},
+        "size": {
+          "field": "Exports_A$b",
+          "type": "quantitative",
+          "title": "Exports (AUD$ Billion, 2024)",
+          "scale": {"range": [100, 1800]}
+        },
+        "color": {
+          "field": "Exports_A$b",
+          "type": "quantitative",
+          "scale": {"scheme": "orangered"}
+        },
+        "tooltip": [
+          {"field": "Country", "type": "nominal", "title": "Country"},
+          {
+            "field": "Exports_A$b",
+            "type": "quantitative",
+            "title": "Exports (AUD$ Billion)",
+            "format": ",.2f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [{"Country": "China", "Latitude": 35.0, "Longitude": 103.0}]
+      },
+      "mark": {
+        "type": "text",
+        "text": "Largest Export Market",
+        "align": "left",
+        "dx": 0,
+        "dy": -30,
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "color": "black"
+      },
+      "encoding": {
+        "longitude": {"field": "Longitude", "type": "quantitative"},
+        "latitude": {"field": "Latitude", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {
+        "values": [{"Country": "New Zealand", "Latitude": -41.0, "Longitude": 174.0}]
+      },
+      "mark": {
+        "type": "text",
+        "text": "Smallest in Top 10",
+        "align": "left",
+        "dx": 10,
+        "dy": -10,
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "color": "black"
+      },
+      "encoding": {
+        "longitude": {"field": "Longitude", "type": "quantitative"},
+        "latitude": {"field": "Latitude", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"city": "Beijing", "lat": 39.9, "lon": 116.4},
+          {"city": "Tokyo", "lat": 35.7, "lon": 139.7},
+          {"city": "Seoul", "lat": 37.6, "lon": 127.0},
+          {"city": "Washington DC", "lat": 38.9, "lon": -77.0},
+          {"city": "New Delhi", "lat": 28.6, "lon": 77.2},
+          {"city": "Kuala Lumpur", "lat": 3.1, "lon": 101.7},
+          {"city": "London", "lat": 51.5, "lon": -0.1},
+          {"city": "Taipei", "lat": 25.0, "lon": 121.5},
+          {"city": "Wellington", "lat": -41.3, "lon": 174.8},
+          {"city": "Singapore", "lat": 1.35, "lon": 103.8},
+          {"city": "Canberra", "lat": -35.3, "lon": 149.1}
+        ]
+      },
+      "mark": {"type": "circle", "color": "black", "size": 30},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "tooltip": [{"field": "city", "type": "nominal", "title": "City"}]
+      }
+    }
+  ]
+}
