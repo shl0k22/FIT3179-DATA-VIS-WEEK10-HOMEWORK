@@ -1,11 +1,111 @@
-Country,Exports_A$b,Latitude,Longitude
-China,212.7,35.0,103.0
-Japan,80.5,36.0,138.0
-South Korea,42.3,36.5,127.8
-United States,37.5,38.0,-97.0
-India,34.2,21.0,78.0
-Malaysia,15.1,4.2,101.9
-United Kingdom,14.1,55.0,-3.4
-Taiwan,9.85,23.7,121.0
-New Zealand,9.74,-41.0,174.0
-Singapore,9.0,1.35,103.8
+Country,Year,Exports_A$b,Imports_A$b
+China,2014,150,95
+Japan,2014,60,40
+South Korea,2014,38,28
+United States of America,2014,25,50
+India,2014,22,15
+Taiwan,2014,18,12
+Singapore,2014,15,10
+United Kingdom,2014,12,8
+New Zealand,2014,10,7
+Thailand,2014,8,12
+China,2015,155,98
+Japan,2015,62,42
+South Korea,2015,40,29
+United States of America,2015,26,52
+India,2015,23,16
+Taiwan,2015,19,13
+Singapore,2015,16,11
+United Kingdom,2015,13,9
+New Zealand,2015,11,8
+Thailand,2015,9,13
+China,2016,160,100
+Japan,2016,64,43
+South Korea,2016,42,30
+United States of America,2016,27,53
+India,2016,24,17
+Taiwan,2016,20,14
+Singapore,2016,17,12
+United Kingdom,2016,14,10
+New Zealand,2016,12,9
+Thailand,2016,10,14
+China,2017,168,105
+Japan,2017,66,45
+South Korea,2017,44,31
+United States of America,2017,28,55
+India,2017,25,18
+Taiwan,2017,21,15
+Singapore,2017,18,13
+United Kingdom,2017,15,11
+New Zealand,2017,13,10
+Thailand,2017,11,15
+China,2018,175,110
+Japan,2018,68,47
+South Korea,2018,46,32
+United States of America,2018,30,58
+India,2018,27,19
+Taiwan,2018,22,16
+Singapore,2018,19,14
+United Kingdom,2018,16,12
+New Zealand,2018,13,10
+Thailand,2018,11,16
+China,2019,182,115
+Japan,2019,70,49
+South Korea,2019,47,33
+United States of America,2019,31,60
+India,2019,28,20
+Taiwan,2019,23,17
+Singapore,2019,19,14
+United Kingdom,2019,17,13
+New Zealand,2019,14,11
+Thailand,2019,11,17
+China,2020,188,108
+Japan,2020,72,47
+South Korea,2020,48,32
+United States of America,2020,32,57
+India,2020,29,18
+Taiwan,2020,24,16
+Singapore,2020,19,13
+United Kingdom,2020,17,12
+New Zealand,2020,14,10
+Thailand,2020,11,15
+China,2021,195,125
+Japan,2021,73,52
+South Korea,2021,49,35
+United States of America,2021,33,65
+India,2021,30,22
+Taiwan,2021,24,18
+Singapore,2021,20,15
+United Kingdom,2021,17,14
+New Zealand,2021,14,12
+Thailand,2021,12,18
+China,2022,198,140
+Japan,2022,74,58
+South Korea,2022,50,38
+United States of America,2022,34,72
+India,2022,31,25
+Taiwan,2022,25,20
+Singapore,2022,20,17
+United Kingdom,2022,18,16
+New Zealand,2022,15,13
+Thailand,2022,12,20
+China,2023,199,152
+Japan,2023,74,62
+South Korea,2023,50,42
+United States of America,2023,35,78
+India,2023,31,28
+Taiwan,2023,25,22
+Singapore,2023,20,19
+United Kingdom,2023,18,17
+New Zealand,2023,15,14
+Thailand,2023,12,22
+China,2024,200,158
+Japan,2024,75,65
+South Korea,2024,50,45
+United States of America,2024,35,82
+India,2024,32,30
+Taiwan,2024,25,24
+Singapore,2024,20,20
+United Kingdom,2024,18,18
+New Zealand,2024,15,15
+Thailand,2024,12,24
