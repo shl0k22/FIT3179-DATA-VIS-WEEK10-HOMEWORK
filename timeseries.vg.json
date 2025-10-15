@@ -1,112 +1,77 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 900,
-  "height": 400,
+  "width": 950,
+  "height": 450,
   "title": {
-    "text": "Australia's Exports vs Imports (2014–2024)",
-    "subtitle": "Source: ABS & DFAT, 2024",
+    "text": "Exports Trends for All Trading Partners (2014–2024)",
+    "subtitle": "Source: ABS & DFAT (2014–2024)",
     "fontSize": 16,
     "fontWeight": "bold",
-    "anchor": "start"
+    "anchor": "middle"
   },
-  "data": {
-    "values": [
-      {"Year": 2014, "Exports_A$b": 320, "Imports_A$b": 250},
-      {"Year": 2015, "Exports_A$b": 330, "Imports_A$b": 260},
-      {"Year": 2016, "Exports_A$b": 340, "Imports_A$b": 270},
-      {"Year": 2017, "Exports_A$b": 355, "Imports_A$b": 285},
-      {"Year": 2018, "Exports_A$b": 370, "Imports_A$b": 300},
-      {"Year": 2019, "Exports_A$b": 382, "Imports_A$b": 315},
-      {"Year": 2020, "Exports_A$b": 390, "Imports_A$b": 295},
-      {"Year": 2021, "Exports_A$b": 435, "Imports_A$b": 340},
-      {"Year": 2022, "Exports_A$b": 470, "Imports_A$b": 395},
-      {"Year": 2023, "Exports_A$b": 485, "Imports_A$b": 430},
-      {"Year": 2024, "Exports_A$b": 495, "Imports_A$b": 450}
+  "data": {"url": "Data/exports2024.csv"},
+  "params": [
+    {"name": "yearFilter"},
+    {"name": "tradeType"}
+  ],
+  "transform": [
+    {"filter": "datum.Year <= yearFilter"},
+    {
+      "calculate": "tradeType == 'Exports' ? datum.Exports_A$b : datum.Imports_A$b",
+      "as": "TradeValue"
+    }
+  ],
+  "mark": {"type": "line", "point": true, "strokeWidth": 2.5},
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "quantitative",
+      "title": "Year",
+      "axis": {"grid": false, "tickCount": 11, "format": "d"}
+    },
+    "y": {
+      "field": "TradeValue",
+      "type": "quantitative",
+      "title": "Trade Value (A$ Billion)",
+      "scale": {"domain": [0, 220]},
+      "axis": {"grid": true}
+    },
+    "color": {
+      "field": "Country",
+      "type": "nominal",
+      "title": "Country",
+      "scale": {
+        "domain": [
+          "China", "Japan", "South Korea", "United States of America",
+          "India", "Taiwan", "Singapore", "United Kingdom",
+          "New Zealand", "Thailand"
+        ],
+        "range": [
+          "#e74c3c", "#3498db", "#2ecc71", "#f39c12",
+          "#9b59b6", "#1abc9c", "#e67e22", "#34495e",
+          "#16a085", "#d35400"
+        ]
+      },
+      "legend": {
+        "orient": "right",
+        "labelLimit": 200,
+        "symbolSize": 80,
+        "titleLimit": 100,
+        "offset": 10
+      }
+    }, 
+    "tooltip": [
+      {"field": "Country", "type": "nominal", "title": "Country"},
+      {"field": "Year", "type": "quantitative", "title": "Year"},
+      {"field": "TradeValue", "type": "quantitative", "title": "Value (A$ Billion)", "format": ".0f"},
+      {"field": "Exports_A$b", "title": "Exports (A$ Billion)", "format": ".0f"},
+      {"field": "Imports_A$b", "title": "Imports (A$ Billion)", "format": ".0f"}
     ]
   },
-  "params": [
-    {
-      "name": "yearFilter",
-      "value": 2024,
-      "bind": {
-        "input": "range",
-        "min": 2014,
-        "max": 2024,
-        "step": 1,
-        "name": "Year: "
-      }
-    }
-  ],
-  "transform": [{"filter": "datum.Year <= yearFilter"}],
-  "layer": [
-    {
-      "mark": {"type": "line", "strokeWidth": 3, "point": {"size": 60}},
-      "encoding": {
-        "x": {
-          "field": "Year",
-          "type": "quantitative",
-          "title": "Year",
-          "axis": {"grid": false, "tickCount": 11}
-        },
-        "y": {
-          "field": "Exports_A$b",
-          "type": "quantitative",
-          "title": "Trade Value (A$ Billions)",
-          "scale": {"domain": [0, 550]},
-          "axis": {"grid": true}
-        },
-        "color": {
-          "datum": "Exports",
-          "type": "nominal",
-          "scale": {"domain": ["Exports", "Imports"], "range": ["#4285f4", "#ea4335"]},
-          "legend": {"title": "Trade Type", "orient": "top-right"}
-        },
-        "tooltip": [
-          {"field": "Year", "type": "quantitative", "title": "Year"},
-          {"field": "Exports_A$b", "title": "Exports (A$ B)", "format": ".0f"}
-        ]
-      }
-    },
-    {
-      "mark": {"type": "line", "strokeWidth": 3, "point": {"size": 60}},
-      "encoding": {
-        "x": {"field": "Year", "type": "quantitative"},
-        "y": {"field": "Imports_A$b", "type": "quantitative"},
-        "color": {
-          "datum": "Imports",
-          "type": "nominal",
-          "scale": {"domain": ["Exports", "Imports"], "range": ["#4285f4", "#ea4335"]},
-          "legend": {"title": "Trade Type", "orient": "top-right"}
-        },
-        "tooltip": [
-          {"field": "Year", "type": "quantitative", "title": "Year"},
-          {"field": "Imports_A$b", "title": "Imports (A$ B)", "format": ".0f"}
-        ]
-      }
-    },
-    {
-      "transform": [{"filter": "yearFilter >= 2020"}],
-      "data": {
-        "values": [{"Year": 2020, "Exports_A$b": 439, "text": "COVID-19 Impact (2020)"}]
-      },
-      "mark": {
-        "type": "text",
-        "fontSize": 11,
-        "fontStyle": "italic",
-        "align": "left",
-        "dx": 5,
-        "dy": -10,
-        "color": "#555555"
-      },
-      "encoding": {
-        "x": {"field": "Year", "type": "quantitative"},
-        "y": {"field": "Exports_A$b", "type": "quantitative"},
-        "text": {"field": "text", "type": "nominal"}
-      }
-    }
-  ],
   "config": {
+    "background": "#ffffff",
     "view": {"stroke": null},
     "axis": {"labelFontSize": 11, "titleFontSize": 12}
   }
 }
+

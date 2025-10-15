@@ -1,174 +1,59 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 900,
-  "height": 500,
-  "params": [
-    {
-      "name": "yearFilter",
-      "value": 2024,
-      "bind": {
-        "input": "range",
-        "min": 2014,
-        "max": 2024,
-        "step": 1,
-        "name": "Year: "
-      }
-    },
-    {
-      "name": "tradeType",
-      "value": "Exports",
-      "bind": {
-        "input": "select",
-        "options": ["Exports", "Imports"],
-        "name": "Trade Type: "
-      }
-    }
-  ],
+  "width": 1000,
+  "height": 520,
   "title": {
-    "text": "Australia's Top 10 Trade Destinations (AUD$ Billion)",
-    "subtitle": "Source: ABS & DFAT (2024)",
+    "text": "Australia’s Trade Partners — Interactive Map",
+    "subtitle": "Source: ABS & DFAT (2014–2024)",
+    "anchor": "middle",
     "fontSize": 18,
     "fontWeight": "bold",
-    "subtitleFontSize": 12,
-    "anchor": "middle"
+    "subtitleFontSize": 12
   },
   "projection": {"type": "equalEarth"},
+  "params": [
+    {"name": "yearFilter"},
+    {"name": "tradeType"}
+  ],
   "layer": [
     {
       "data": {"sphere": true},
-      "mark": {"type": "geoshape", "fill": "#d6e6f5"}
+      "mark": {"type": "geoshape", "fill": "#cfe8ff"}
     },
     {
       "data": {
         "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
         "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
       },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#f0f0f0",
+        "stroke": "#000000",
+        "strokeWidth": 0.3,
+        "opacity": 0.9
+      }
+    },
+    {
+      "data": {"url": "Data/exports2024.csv"},
       "transform": [
+        {"filter": "datum.Year == yearFilter"},
         {
-          "lookup": "properties.NAME",
+          "lookup": "Country",
           "from": {
             "data": {
-              "values": [
-                {"Country": "China", "Year": 2014, "Exports_A$b": 150, "Imports_A$b": 95},
-                {"Country": "Japan", "Year": 2014, "Exports_A$b": 60, "Imports_A$b": 40},
-                {"Country": "South Korea", "Year": 2014, "Exports_A$b": 38, "Imports_A$b": 28},
-                {"Country": "United States of America", "Year": 2014, "Exports_A$b": 25, "Imports_A$b": 50},
-                {"Country": "India", "Year": 2014, "Exports_A$b": 22, "Imports_A$b": 15},
-                {"Country": "Taiwan", "Year": 2014, "Exports_A$b": 18, "Imports_A$b": 12},
-                {"Country": "Singapore", "Year": 2014, "Exports_A$b": 15, "Imports_A$b": 10},
-                {"Country": "United Kingdom", "Year": 2014, "Exports_A$b": 12, "Imports_A$b": 8},
-                {"Country": "New Zealand", "Year": 2014, "Exports_A$b": 10, "Imports_A$b": 7},
-                {"Country": "Thailand", "Year": 2014, "Exports_A$b": 8, "Imports_A$b": 12},
-                {"Country": "China", "Year": 2015, "Exports_A$b": 155, "Imports_A$b": 98},
-                {"Country": "Japan", "Year": 2015, "Exports_A$b": 62, "Imports_A$b": 42},
-                {"Country": "South Korea", "Year": 2015, "Exports_A$b": 40, "Imports_A$b": 29},
-                {"Country": "United States of America", "Year": 2015, "Exports_A$b": 26, "Imports_A$b": 52},
-                {"Country": "India", "Year": 2015, "Exports_A$b": 23, "Imports_A$b": 16},
-                {"Country": "Taiwan", "Year": 2015, "Exports_A$b": 19, "Imports_A$b": 13},
-                {"Country": "Singapore", "Year": 2015, "Exports_A$b": 16, "Imports_A$b": 11},
-                {"Country": "United Kingdom", "Year": 2015, "Exports_A$b": 13, "Imports_A$b": 9},
-                {"Country": "New Zealand", "Year": 2015, "Exports_A$b": 11, "Imports_A$b": 8},
-                {"Country": "Thailand", "Year": 2015, "Exports_A$b": 9, "Imports_A$b": 13},
-                {"Country": "China", "Year": 2016, "Exports_A$b": 160, "Imports_A$b": 100},
-                {"Country": "Japan", "Year": 2016, "Exports_A$b": 64, "Imports_A$b": 43},
-                {"Country": "South Korea", "Year": 2016, "Exports_A$b": 42, "Imports_A$b": 30},
-                {"Country": "United States of America", "Year": 2016, "Exports_A$b": 27, "Imports_A$b": 53},
-                {"Country": "India", "Year": 2016, "Exports_A$b": 24, "Imports_A$b": 17},
-                {"Country": "Taiwan", "Year": 2016, "Exports_A$b": 20, "Imports_A$b": 14},
-                {"Country": "Singapore", "Year": 2016, "Exports_A$b": 17, "Imports_A$b": 12},
-                {"Country": "United Kingdom", "Year": 2016, "Exports_A$b": 14, "Imports_A$b": 10},
-                {"Country": "New Zealand", "Year": 2016, "Exports_A$b": 12, "Imports_A$b": 9},
-                {"Country": "Thailand", "Year": 2016, "Exports_A$b": 10, "Imports_A$b": 14},
-                {"Country": "China", "Year": 2017, "Exports_A$b": 168, "Imports_A$b": 105},
-                {"Country": "Japan", "Year": 2017, "Exports_A$b": 66, "Imports_A$b": 45},
-                {"Country": "South Korea", "Year": 2017, "Exports_A$b": 44, "Imports_A$b": 31},
-                {"Country": "United States of America", "Year": 2017, "Exports_A$b": 28, "Imports_A$b": 55},
-                {"Country": "India", "Year": 2017, "Exports_A$b": 25, "Imports_A$b": 18},
-                {"Country": "Taiwan", "Year": 2017, "Exports_A$b": 21, "Imports_A$b": 15},
-                {"Country": "Singapore", "Year": 2017, "Exports_A$b": 18, "Imports_A$b": 13},
-                {"Country": "United Kingdom", "Year": 2017, "Exports_A$b": 15, "Imports_A$b": 11},
-                {"Country": "New Zealand", "Year": 2017, "Exports_A$b": 13, "Imports_A$b": 10},
-                {"Country": "Thailand", "Year": 2017, "Exports_A$b": 11, "Imports_A$b": 15},
-                {"Country": "China", "Year": 2018, "Exports_A$b": 175, "Imports_A$b": 110},
-                {"Country": "Japan", "Year": 2018, "Exports_A$b": 68, "Imports_A$b": 47},
-                {"Country": "South Korea", "Year": 2018, "Exports_A$b": 46, "Imports_A$b": 32},
-                {"Country": "United States of America", "Year": 2018, "Exports_A$b": 30, "Imports_A$b": 58},
-                {"Country": "India", "Year": 2018, "Exports_A$b": 27, "Imports_A$b": 19},
-                {"Country": "Taiwan", "Year": 2018, "Exports_A$b": 22, "Imports_A$b": 16},
-                {"Country": "Singapore", "Year": 2018, "Exports_A$b": 19, "Imports_A$b": 14},
-                {"Country": "United Kingdom", "Year": 2018, "Exports_A$b": 16, "Imports_A$b": 12},
-                {"Country": "New Zealand", "Year": 2018, "Exports_A$b": 13, "Imports_A$b": 10},
-                {"Country": "Thailand", "Year": 2018, "Exports_A$b": 11, "Imports_A$b": 16},
-                {"Country": "China", "Year": 2019, "Exports_A$b": 182, "Imports_A$b": 115},
-                {"Country": "Japan", "Year": 2019, "Exports_A$b": 70, "Imports_A$b": 49},
-                {"Country": "South Korea", "Year": 2019, "Exports_A$b": 47, "Imports_A$b": 33},
-                {"Country": "United States of America", "Year": 2019, "Exports_A$b": 31, "Imports_A$b": 60},
-                {"Country": "India", "Year": 2019, "Exports_A$b": 28, "Imports_A$b": 20},
-                {"Country": "Taiwan", "Year": 2019, "Exports_A$b": 23, "Imports_A$b": 17},
-                {"Country": "Singapore", "Year": 2019, "Exports_A$b": 19, "Imports_A$b": 14},
-                {"Country": "United Kingdom", "Year": 2019, "Exports_A$b": 17, "Imports_A$b": 13},
-                {"Country": "New Zealand", "Year": 2019, "Exports_A$b": 14, "Imports_A$b": 11},
-                {"Country": "Thailand", "Year": 2019, "Exports_A$b": 11, "Imports_A$b": 17},
-                {"Country": "China", "Year": 2020, "Exports_A$b": 188, "Imports_A$b": 108},
-                {"Country": "Japan", "Year": 2020, "Exports_A$b": 72, "Imports_A$b": 47},
-                {"Country": "South Korea", "Year": 2020, "Exports_A$b": 48, "Imports_A$b": 32},
-                {"Country": "United States of America", "Year": 2020, "Exports_A$b": 32, "Imports_A$b": 57},
-                {"Country": "India", "Year": 2020, "Exports_A$b": 29, "Imports_A$b": 18},
-                {"Country": "Taiwan", "Year": 2020, "Exports_A$b": 24, "Imports_A$b": 16},
-                {"Country": "Singapore", "Year": 2020, "Exports_A$b": 19, "Imports_A$b": 13},
-                {"Country": "United Kingdom", "Year": 2020, "Exports_A$b": 17, "Imports_A$b": 12},
-                {"Country": "New Zealand", "Year": 2020, "Exports_A$b": 14, "Imports_A$b": 10},
-                {"Country": "Thailand", "Year": 2020, "Exports_A$b": 11, "Imports_A$b": 15},
-                {"Country": "China", "Year": 2021, "Exports_A$b": 195, "Imports_A$b": 125},
-                {"Country": "Japan", "Year": 2021, "Exports_A$b": 73, "Imports_A$b": 52},
-                {"Country": "South Korea", "Year": 2021, "Exports_A$b": 49, "Imports_A$b": 35},
-                {"Country": "United States of America", "Year": 2021, "Exports_A$b": 33, "Imports_A$b": 65},
-                {"Country": "India", "Year": 2021, "Exports_A$b": 30, "Imports_A$b": 22},
-                {"Country": "Taiwan", "Year": 2021, "Exports_A$b": 24, "Imports_A$b": 18},
-                {"Country": "Singapore", "Year": 2021, "Exports_A$b": 20, "Imports_A$b": 15},
-                {"Country": "United Kingdom", "Year": 2021, "Exports_A$b": 17, "Imports_A$b": 14},
-                {"Country": "New Zealand", "Year": 2021, "Exports_A$b": 14, "Imports_A$b": 12},
-                {"Country": "Thailand", "Year": 2021, "Exports_A$b": 12, "Imports_A$b": 18},
-                {"Country": "China", "Year": 2022, "Exports_A$b": 198, "Imports_A$b": 140},
-                {"Country": "Japan", "Year": 2022, "Exports_A$b": 74, "Imports_A$b": 58},
-                {"Country": "South Korea", "Year": 2022, "Exports_A$b": 50, "Imports_A$b": 38},
-                {"Country": "United States of America", "Year": 2022, "Exports_A$b": 34, "Imports_A$b": 72},
-                {"Country": "India", "Year": 2022, "Exports_A$b": 31, "Imports_A$b": 25},
-                {"Country": "Taiwan", "Year": 2022, "Exports_A$b": 25, "Imports_A$b": 20},
-                {"Country": "Singapore", "Year": 2022, "Exports_A$b": 20, "Imports_A$b": 17},
-                {"Country": "United Kingdom", "Year": 2022, "Exports_A$b": 18, "Imports_A$b": 16},
-                {"Country": "New Zealand", "Year": 2022, "Exports_A$b": 15, "Imports_A$b": 13},
-                {"Country": "Thailand", "Year": 2022, "Exports_A$b": 12, "Imports_A$b": 20},
-                {"Country": "China", "Year": 2023, "Exports_A$b": 199, "Imports_A$b": 152},
-                {"Country": "Japan", "Year": 2023, "Exports_A$b": 74, "Imports_A$b": 62},
-                {"Country": "South Korea", "Year": 2023, "Exports_A$b": 50, "Imports_A$b": 42},
-                {"Country": "United States of America", "Year": 2023, "Exports_A$b": 35, "Imports_A$b": 78},
-                {"Country": "India", "Year": 2023, "Exports_A$b": 31, "Imports_A$b": 28},
-                {"Country": "Taiwan", "Year": 2023, "Exports_A$b": 25, "Imports_A$b": 22},
-                {"Country": "Singapore", "Year": 2023, "Exports_A$b": 20, "Imports_A$b": 19},
-                {"Country": "United Kingdom", "Year": 2023, "Exports_A$b": 18, "Imports_A$b": 17},
-                {"Country": "New Zealand", "Year": 2023, "Exports_A$b": 15, "Imports_A$b": 14},
-                {"Country": "Thailand", "Year": 2023, "Exports_A$b": 12, "Imports_A$b": 22},
-                {"Country": "China", "Year": 2024, "Exports_A$b": 200, "Imports_A$b": 158},
-                {"Country": "Japan", "Year": 2024, "Exports_A$b": 75, "Imports_A$b": 65},
-                {"Country": "South Korea", "Year": 2024, "Exports_A$b": 50, "Imports_A$b": 45},
-                {"Country": "United States of America", "Year": 2024, "Exports_A$b": 35, "Imports_A$b": 82},
-                {"Country": "India", "Year": 2024, "Exports_A$b": 32, "Imports_A$b": 30},
-                {"Country": "Taiwan", "Year": 2024, "Exports_A$b": 25, "Imports_A$b": 24},
-                {"Country": "Singapore", "Year": 2024, "Exports_A$b": 20, "Imports_A$b": 20},
-                {"Country": "United Kingdom", "Year": 2024, "Exports_A$b": 18, "Imports_A$b": 18},
-                {"Country": "New Zealand", "Year": 2024, "Exports_A$b": 15, "Imports_A$b": 15},
-                {"Country": "Thailand", "Year": 2024, "Exports_A$b": 12, "Imports_A$b": 24}
-              ]
+              "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+              "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
             },
-            "key": "Country",
-            "fields": ["Year", "Exports_A$b", "Imports_A$b"]
+            "key": "properties.NAME",
+            "fields": ["type", "geometry"]
           }
         },
-        {"filter": "datum.Year == yearFilter"},
-        {"calculate": "tradeType == 'Exports' ? datum.Exports_A$b : datum.Imports_A$b", "as": "TradeValue"}
+        {
+          "calculate": "tradeType == 'Exports' ? datum.Exports_A$b : datum.Imports_A$b",
+          "as": "TradeValue"
+        }
       ],
-      "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 0.5},
+      "mark": {"type": "geoshape", "stroke": "#000000", "strokeWidth": 0.5},
       "encoding": {
         "color": {
           "field": "TradeValue",
@@ -176,36 +61,27 @@
           "title": "Trade Value (A$ Billion)",
           "scale": {
             "domain": [0, 210],
-            "scheme": "reds"
+            "scheme": {"signal": "tradeType == 'Exports' ? 'reds' : 'blues'"}
           },
-          "legend": {
-            "orient": "right",
-            "gradientLength": 200
-          }
+          "legend": {"orient": "right", "gradientLength": 220}
         },
         "tooltip": [
-          {"field": "properties.NAME", "title": "Country", "type": "nominal"},
-          {"field": "Exports_A$b", "title": "Exports (A$ Billion)", "format": ".1f", "type": "quantitative"},
-          {"field": "Imports_A$b", "title": "Imports (A$ Billion)", "format": ".1f", "type": "quantitative"}
+          {"field": "Country", "title": "Country"},
+          {"field": "Year", "title": "Year"},
+          {"field": "Exports_A$b", "title": "Exports (A$ Billion)", "format": ".1f"},
+          {"field": "Imports_A$b", "title": "Imports (A$ Billion)", "format": ".1f"}
         ]
       }
     },
     {
-      "data": {
-        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
-        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
-      },
-      "mark": {"type": "geoshape", "fill": "#e8e8e8", "stroke": "#ffffff", "strokeWidth": 0.5},
-      "encoding": {
-        "tooltip": {"field": "properties.NAME", "title": "Country", "type": "nominal"}
-      }
-    },
-    {
-      "data": {"graticule": {"step": [30, 30]}},
-      "mark": {"type": "geoshape", "stroke": "#cccccc", "strokeWidth": 0.3, "fill": null}
+      "data": {"graticule": {"step": [20, 20]}},
+      "mark": {"type": "geoshape", "stroke": "#a3b1c2", "strokeWidth": 0.4, "fill": null}
     }
   ],
   "config": {
-    "view": {"stroke": null}
+    "background": "#eaf3fb",
+    "view": {"stroke": null},
+    "style": {"cell": {"stroke": "transparent"}},
+    "title": {"font": "Inter", "fontWeight": "600"}
   }
 }

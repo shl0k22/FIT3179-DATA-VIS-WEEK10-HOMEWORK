@@ -1,0 +1,76 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 850,
+  "height": 450,
+  "title": {
+    "text": "Top 10 Commodities by Trade Value (Selected Year)",
+    "subtitle": "Source: DFAT Commodity Data | 2014–2024",
+    "fontSize": 16,
+    "anchor": "start"
+  },
+  "data": {"url": "Data/top_commodities_2014_2024.csv"},
+  "params": [
+    {"name": "yearFilter"},
+    {"name": "tradeType"}
+  ],
+  "transform": [
+    {"filter": "datum.Year == yearFilter"},
+    {
+      "calculate": "tradeType == 'Exports' ? datum['Exports_A$b'] : datum['Imports_A$b']",
+      "as": "TradeValue"
+    },
+    {
+      "window": [{"op": "rank", "as": "Rank"}],
+      "sort": [{"field": "TradeValue", "order": "descending"}]
+    },
+    {"filter": "datum.Rank <= 10"}
+  ],
+  "mark": {"type": "bar", "cornerRadiusEnd": 4},
+  "encoding": {
+    "y": {
+      "field": "Commodity",
+      "type": "nominal",
+      "sort": "-x",
+      "title": "Commodity",
+      "axis": {
+        "labelFontSize": 13,
+        "titleFontSize": 13,
+        "labelLimit": 300,
+        "labelAlign": "right",
+        "labelPadding": 8,
+        "labelExpr": "datum.label"
+      }
+    },
+    "x": {
+      "field": "TradeValue",
+      "type": "quantitative",
+      "title": "Trade Value (A$ Billion)",
+      "axis": {"titleFontSize": 13, "labelFontSize": 12}
+    },
+    "color": {
+      "field": "TradeValue",
+      "type": "quantitative",
+      "scale": {
+        "scheme": {"signal": "tradeType == 'Exports' ? 'reds' : 'blues'"}
+      },
+      "legend": {
+        "title": "Trade Value (A$B)",
+        "orient": "right",
+        "gradientLength": 200
+      }
+    },
+    "tooltip": [
+      {"field": "Commodity", "title": "Commodity"},
+      {"field": "Year", "title": "Year"},
+      {"field": "TradeValue", "title": "Value (A$ Billion)", "format": ".1f"}
+    ]
+  },
+  "config": {
+    "view": {"stroke": null, "continuousWidth": 850, "continuousHeight": 450},
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "padding": {"left": 160, "right": 30, "top": 20, "bottom": 30}
+  }
+}

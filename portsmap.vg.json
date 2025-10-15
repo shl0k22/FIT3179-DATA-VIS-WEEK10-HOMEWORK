@@ -1,0 +1,79 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 1000,
+  "height": 550,
+  "title": {
+    "text": "Australia’s Trade Flow to Major Ports (2024)",
+    "subtitle": "Arc thickness = Value (A$ Billion) | Arc color = Commodity type | Data: DFAT & ABS (sample)",
+    "fontSize": 16,
+    "anchor": "start"
+  },
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    { "data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e8f3fc"} },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "mark": {"type": "geoshape", "fill": "#f7f7f7", "stroke": "#ccc"}
+    },
+    {
+      "data": {"url": "Data/Port_Flows.csv"},
+      "mark": {
+        "type": "rule",
+        "strokeWidth": {"expr": "datum.Value_A$b / 5"},
+        "strokeOpacity": 0.7
+      },
+      "encoding": {
+        "longitude": {"field": "OriginLon"},
+        "latitude": {"field": "OriginLat"},
+        "longitude2": {"field": "PortLon"},
+        "latitude2": {"field": "PortLat"},
+        "color": {
+          "field": "Commodity",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Iron Ore", "Coal", "LNG", "Wheat", "Gold", "Precious Metals"],
+            "range": ["#b4462d", "#505050", "#1a73e8", "#eab676", "#c5a300", "#8e44ad"]
+          },
+          "legend": {"title": "Commodity Type"}
+        },
+        "tooltip": [
+          {"field": "OriginCountry", "title": "Origin"},
+          {"field": "Port", "title": "Port"},
+          {"field": "Commodity", "title": "Commodity"},
+          {"field": "Value_A$b", "title": "Value (A$B)"}
+        ]
+      }
+    },
+    {
+      "data": {"url": "Data/Ports_Trade.csv"},
+      "mark": {"type": "circle", "opacity": 0.9, "stroke": "#222"},
+      "encoding": {
+        "longitude": {"field": "Longitude"},
+        "latitude": {"field": "Latitude"},
+        "size": {"field": "Export_Value_A$b", "type": "quantitative", "scale": {"range": [200, 2000]}},
+        "color": {"value": "#c57f1f"},
+        "tooltip": [
+          {"field": "Port"},
+          {"field": "State"},
+          {"field": "Export_Value_A$b", "title": "Exports (A$B)"}
+        ]
+      }
+    },
+    {
+      "data": {"url": "Data/Ports_Trade.csv"},
+      "mark": {"type": "text", "dy": -10, "fontSize": 11, "fontWeight": "bold", "fill": "#333"},
+      "encoding": {
+        "longitude": {"field": "Longitude"},
+        "latitude": {"field": "Latitude"},
+        "text": {"field": "Port"}
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "legend": {"labelFontSize": 11, "titleFontSize": 12}
+  }
+}
